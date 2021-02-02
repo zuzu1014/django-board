@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from posts.models import Post
+from z.models import Post
 from accounts.models import User
 
 class Command(BaseCommand):
