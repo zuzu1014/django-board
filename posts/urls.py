@@ -5,7 +5,6 @@ app_name = 'posts'
 
 
 urlpatterns = [
-
-    path('board/', views.BoardView.as_view()),
-    
+    path('board/scroll/', views.BoardScrollView.as_view()),
+    path('board/scroll-posts/', views.scroll_posts, name='board-scroll')
 ]

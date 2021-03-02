@@ -7,8 +7,6 @@
 
 <div id="board">
     <div id="board__filter" class="zuzu__container">
-
-
         <div id="board__filter__title">원하는 정보를 찾아보세요.</div>
         <div id="board__filter__search">
             <input id="board__filter__search__input" type="text">
@@ -86,67 +84,89 @@
     </div>
     <div id="board__content" class="zuzu__container">
 
-        <div class="board__content__item">
-            <div class="board__content__item__head">
-                <img class="board__content__item__head__img" src="/static/img/logo/logo_2.png" alt="" srcset="">
-            </div>
-            <div class="board__content__item__body">
-                <div class="board__content__item__body__company">퓨처 컴퍼니</div>
-                <div class="board__content__item__body__position">서버 백엔드 엔지니어</div>
-                <div class="board__content__item__body__location">경기도 성남시 분당구</div>
-                <div class="board__content__item__body__filter">
-                    <div class="board__content__item__body__filter__item">경력</div>
-                    <div class="board__content__item__body__filter__item">java</div>
-                </div>
-            </div>
-            <div class="board__content__item__tail">
-                <div class="board__content__item__tail__salary">3500 ~ 3700 만원</div>
-                <div class="board__content__item__tail__deadline">~ 02 / 27</div>
-            </div>
-        </div>
-
-        <div class="board__content__item">
-            <div class="board__content__item__head">
-                <img class="board__content__item__head__img" src="/static/img/logo/logo_1.png" alt="" srcset="">
-            </div>
-            <div class="board__content__item__body">
-                <div class="board__content__item__body__company">투게더 컴퍼니</div>
-                <div class="board__content__item__body__position">AI 개발자</div>
-                <div class="board__content__item__body__location">서울특별시 강남구</div>
-                <div class="board__content__item__body__filter">
-                    <div class="board__content__item__body__filter__item">경력</div>
-                    <div class="board__content__item__body__filter__item">python</div>
-                </div>
-            </div>
-            <div class="board__content__item__tail">
-                <div class="board__content__item__tail__salary">4200 ~ 4300 만원</div>
-                <div class="board__content__item__tail__deadline">~ 03 / 11</div>
-            </div>
-        </div>
-
-        <div class="board__content__item">
-            <div class="board__content__item__head">
-                <img class="board__content__item__head__img" src="/static/img/logo/logo_3.png" alt="" srcset="">
-            </div>
-            <div class="board__content__item__body">
-                <div class="board__content__item__body__company">하와이 컴퍼니</div>
-                <div class="board__content__item__body__position">웹 프론트엔드 개발자</div>
-                <div class="board__content__item__body__location">제주특별자치도 서귀포구</div>
-                <div class="board__content__item__body__filter">
-                    <div class="board__content__item__body__filter__item">신입</div>
-                    <div class="board__content__item__body__filter__item">javascript</div>
-                </div>
-            </div>
-            <div class="board__content__item__tail">
-                <div class="board__content__item__tail__salary">2200 ~ 2500 만원</div>
-                <div class="board__content__item__tail__deadline">~ 02/13 </div>
-            </div>
-        </div>
 
 
     </div>
 </div>
 
 
+<div id="sentinel" style="height: 30px; width: 100%; background-color: lightblue;"></div>
 
+
+<script>
+
+
+    $(document).ready(function() {
+
+    
+
+    const attachInfiniteScroll = (sentinel, scrollElement) => {
+
+        let counter = 1;
+        let end = false;
+        let observer = new IntersectionObserver(async(entries) => {
+            let bottomEntry = entries[0];
+            if (!end && bottomEntry.intersectionRatio > 0) {
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "counter": counter,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    url: "{% url 'posts:board-scroll' %}",
+                    success: function(response) {
+                        if (response.msg == "success") {
+
+     
+                            let new_posts = JSON.parse(response.board)
+                            
+                  
+                            let new_html = ''
+                            new_posts.forEach(post => {
+                                
+                                
+                                new_html += 
+                            `        
+                            <div class="board__content__item">
+                                <div class="board__content__item__head">
+                                    <img class="board__content__item__head__img" src="/static/img/logo/${Math.floor(Math.random() * 6)}.png" alt="" srcset="">
+                                </div>
+                                <div class="board__content__item__body">
+                                    <div class="board__content__item__body__company">${post.fields.title}</div>
+                                    <div class="board__content__item__body__position">${post.fields.content}</div>
+                                    <div class="board__content__item__body__location">${post.fields.location}</div>
+                                    <div class="board__content__item__body__filter">
+                                        <div class="board__content__item__body__filter__item">${post.fields.career}</div>
+                                        <div class="board__content__item__body__filter__item">${post.fields.language}</div>
+                                    </div>
+                                </div>
+                                <div class="board__content__item__tail">
+                                    <div class="board__content__item__tail__salary">${post.fields.salary}</div>
+                                    <div class="board__content__item__tail__deadline">~ ${post.fields.deadline}</div>
+                                </div>
+                            </div>
+                            `
+                            });
+                            $("#board__content").append(new_html)
+
+                        } else {
+                            end = true;
+                        }
+                    },
+                    error: function() {
+                        print("error")
+                    }
+                }).then(() => {
+                    counter += 1;
+                })
+            }
+        })
+        observer.observe(sentinel);
+    };
+    let sentiner = document.querySelector("#sentinel")
+    let scrollElement = document.querySelector("#board")
+    attachInfiniteScroll(sentiner, scrollElement);
+})
+</script>
 {% endblock %}
