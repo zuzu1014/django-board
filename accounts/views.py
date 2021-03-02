@@ -8,8 +8,6 @@ from django.utils.decorators import method_decorator
 from django.contrib import auth
 
 
-def index(request):
-    return render(request, 'common/index.html', {})
 
 @method_decorator(logout_required, name='dispatch')
 class LoginView(View):

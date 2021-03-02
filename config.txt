@@ -1,5 +1,0 @@
-cd env
-django-board\Scripts\activate
-
-d:
-cd django/django-board
