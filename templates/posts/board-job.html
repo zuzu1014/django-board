@@ -1,96 +1,91 @@
 {% extends 'common/base.html' %}
 {% block content %}
-<link rel="stylesheet" href="/static/css/posts/board.css">
+<link rel="stylesheet" href="/static/css/posts/board_scroll.css">
 
 
 
 
-<div id="board">
-    <div id="board__filter" class="zuzu__container">
-        <div id="board__filter__title">원하는 정보를 찾아보세요.</div>
-        <div id="board__filter__search">
-            <input id="board__filter__search__input" type="text">
-            <div id="board__filter__search__icon"><i class="fas fa-search"></i></div>
+<div id="board__scroll">
+    <div id="board__scroll__filter" class="zuzu__container">
+        <div id="board__scroll__filter__title">원하는 정보를 찾아보세요.</div>
+        <div id="board__scroll__filter__search">
+            <input id="board__scroll__filter__search__input" type="text" onkeydown="pressEnter()">
+            <div id="board__scroll__filter__search__icon"><i class="fas fa-search"></i></div>
         </div>
-        <div class="board__filter__checkbox">
-            <div id="board__filter__checkbox__title">
-                <div id="board__filter__checkbox__title__text">프로그래밍 언어</div>
-                <div id="board__filter__checkbox__title__icon"><i class="fas fa-chevron-down"></i></div>
+        <div class="board__scroll__filter__checkbox">
+            <div id="board__scroll__filter__checkbox__title">
+                <div id="board__scroll__filter__checkbox__title__text">프로그래밍 언어</div>
+                <div id="board__scroll__filter__checkbox__title__icon"><i class="fas fa-chevron-down"></i></div>
             </div>
-            <div class="board__filter__checkbox__item">
-                <div class="board__filter__checkbox__item__checkbox zuzu__checkbox zuzu__checkbox__checked">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="board__filter__checkbox__item__text">python</div>
-                <div class="board__filter__checkbox__item__amount board__filter__checkbox__item__amount__checked">
-                    37
+            <div class="board__scroll__filter__checkbox__item">
+                <div class="board__scroll__filter__checkbox__item__text">python</div>
+                <div class="board__scroll__filter__checkbox__item__amount board__scroll__filter__checkbox__item__amount__checked">
+                    {{data_num.num_python}}
                 </div>
             </div>
-            <div class="board__filter__checkbox__item">
-                <div class="board__filter__checkbox__item__checkbox zuzu__checkbox zuzu__checkbox__checked">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="board__filter__checkbox__item__text">java</div>
-                <div class="board__filter__checkbox__item__amount board__filter__checkbox__item__amount__checked">
-                    167
+            <div class="board__scroll__filter__checkbox__item">
+                <div class="board__scroll__filter__checkbox__item__text">java</div>
+                <div class="board__scroll__filter__checkbox__item__amount board__scroll__filter__checkbox__item__amount__checked">
+                    {{data_num.num_java}}
                 </div>
             </div>
-            <div class="board__filter__checkbox__item">
-                <div class="board__filter__checkbox__item__checkbox zuzu__checkbox zuzu__checkbox__checked">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="board__filter__checkbox__item__text">javascript</div>
-                <div class="board__filter__checkbox__item__amount board__filter__checkbox__item__amount__checked">
-                    112
+            <div class="board__scroll__filter__checkbox__item">
+                <div class="board__scroll__filter__checkbox__item__text">javascript</div>
+                <div class="board__scroll__filter__checkbox__item__amount board__scroll__filter__checkbox__item__amount__checked">
+                    {{data_num.num_javascript}}
                 </div>
             </div>
-            <div class="board__filter__checkbox__item">
-                <div class="board__filter__checkbox__item__checkbox zuzu__checkbox zuzu__checkbox__checked">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="board__filter__checkbox__item__text">c++</div>
-                <div class="board__filter__checkbox__item__amount board__filter__checkbox__item__amount__checked">
-                    20
+            <div class="board__scroll__filter__checkbox__item">
+                <div class="board__scroll__filter__checkbox__item__text">c++</div>
+                <div class="board__scroll__filter__checkbox__item__amount board__scroll__filter__checkbox__item__amount__checked">
+                    {{data_num.num_cpp}}
                 </div>
             </div>
         </div>
 
-        <div class="board__filter__checkbox">
-            <div id="board__filter__checkbox__title">
-                <div id="board__filter__checkbox__title__text">경력</div>
-                <div id="board__filter__checkbox__title__icon"><i class="fas fa-chevron-down"></i></div>
+        <div class="board__scroll__filter__checkbox">
+            <div id="board__scroll__filter__checkbox__title">
+                <div id="board__scroll__filter__checkbox__title__text">경력</div>
+                <div id="board__scroll__filter__checkbox__title__icon"><i class="fas fa-chevron-down"></i></div>
             </div>
-            <div class="board__filter__checkbox__item">
-                <div class="board__filter__checkbox__item__checkbox zuzu__checkbox zuzu__checkbox__checked">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="board__filter__checkbox__item__text">신입</div>
-                <div class="board__filter__checkbox__item__amount board__filter__checkbox__item__amount__checked">
-                    51
+            <div class="board__scroll__filter__checkbox__item">
+                <div class="board__scroll__filter__checkbox__item__text">신입</div>
+                <div class="board__scroll__filter__checkbox__item__amount board__scroll__filter__checkbox__item__amount__checked">
+                    {{data_num.num_junior}}
                 </div>
             </div>
-            <div class="board__filter__checkbox__item">
-                <div class="board__filter__checkbox__item__checkbox zuzu__checkbox zuzu__checkbox__checked">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="board__filter__checkbox__item__text">경력</div>
-                <div class="board__filter__checkbox__item__amount board__filter__checkbox__item__amount__checked">
-                    285
+            <div class="board__scroll__filter__checkbox__item">
+                <div class="board__scroll__filter__checkbox__item__text">경력</div>
+                <div class="board__scroll__filter__checkbox__item__amount board__scroll__filter__checkbox__item__amount__checked">
+                    {{data_num.num_senior}}
                 </div>
             </div>
         </div>
 
 
     </div>
-    <div id="board__content" class="zuzu__container">
+    <div id="board__scroll__content" class="zuzu__container">
 
 
+    {% if keywords %}
+        <div id="board__scroll__content__search">
+
+            <div id="board__scroll__content__search__result">{{keywords}} 검색 결과로 총 {{board_data.posts_num}} 건이 검색되었습니다.</div>
+            
+            <div id="board__scroll__content__search__close">
+                <div id="board__scroll__content__search__close__icon">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
 
     </div>
 </div>
 
 
-<div id="sentinel" style="height: 30px; width: 100%; background-color: lightblue;"></div>
+<div id="sentinel" style="height: 30px; width: 100%; "></div>
 
 
 <script>
@@ -99,11 +94,13 @@
     $(document).ready(function() {
 
     
-
+    
     const attachInfiniteScroll = (sentinel, scrollElement) => {
-
+        console.log("attachInfiniteScroll")
         let counter = 1;
         let end = false;
+
+
         let observer = new IntersectionObserver(async(entries) => {
             let bottomEntry = entries[0];
             if (!end && bottomEntry.intersectionRatio > 0) {
@@ -114,7 +111,6 @@
                         "counter": counter,
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
                     },
-                    url: "{% url 'posts:board-scroll' %}",
                     success: function(response) {
                         if (response.msg == "success") {
 
@@ -124,38 +120,37 @@
                   
                             let new_html = ''
                             new_posts.forEach(post => {
-                                
-                                
+                            
                                 new_html += 
                             `        
-                            <div class="board__content__item">
-                                <div class="board__content__item__head">
-                                    <img class="board__content__item__head__img" src="/static/img/logo/${Math.floor(Math.random() * 6)}.png" alt="" srcset="">
+                            <div class="board__scroll__content__item">
+                                <div class="board__scroll__content__item__head">
+                                    <img class="board__scroll__content__item__head__img" src="/static/img/logo/${Math.floor(Math.random() * 6)}.png" alt="" srcset="">
                                 </div>
-                                <div class="board__content__item__body">
-                                    <div class="board__content__item__body__company">${post.fields.title}</div>
-                                    <div class="board__content__item__body__position">${post.fields.content}</div>
-                                    <div class="board__content__item__body__location">${post.fields.location}</div>
-                                    <div class="board__content__item__body__filter">
-                                        <div class="board__content__item__body__filter__item">${post.fields.career}</div>
-                                        <div class="board__content__item__body__filter__item">${post.fields.language}</div>
+                                <div class="board__scroll__content__item__body">
+                                    <div class="board__scroll__content__item__body__company">${post.fields.title}</div>
+                                    <div class="board__scroll__content__item__body__position">${post.fields.content}</div>
+                                    <div class="board__scroll__content__item__body__location">${post.fields.location}</div>
+                                    <div class="board__scroll__content__item__body__filter">
+                                        <div class="board__scroll__content__item__body__filter__item">${post.fields.career}</div>
+                                        <div class="board__scroll__content__item__body__filter__item">${post.fields.language}</div>
                                     </div>
                                 </div>
-                                <div class="board__content__item__tail">
-                                    <div class="board__content__item__tail__salary">${post.fields.salary}</div>
-                                    <div class="board__content__item__tail__deadline">~ ${post.fields.deadline}</div>
+                                <div class="board__scroll__content__item__tail">
+                                    <div class="board__scroll__content__item__tail__salary">${post.fields.salary}</div>
+                                    <div class="board__scroll__content__item__tail__deadline">~ ${post.fields.deadline}</div>
                                 </div>
                             </div>
                             `
                             });
-                            $("#board__content").append(new_html)
+                            $("#board__scroll__content").append(new_html)
 
                         } else {
                             end = true;
                         }
                     },
                     error: function() {
-                        print("error")
+                        console.log("error")
                     }
                 }).then(() => {
                     counter += 1;
@@ -165,8 +160,30 @@
         observer.observe(sentinel);
     };
     let sentiner = document.querySelector("#sentinel")
-    let scrollElement = document.querySelector("#board")
+    let scrollElement = document.querySelector("#board__scroll")
     attachInfiniteScroll(sentiner, scrollElement);
 })
+</script>
+
+<script>
+
+function searchPosts(){
+    let keywords =  document.querySelector("#board__scroll__filter__search__input").value
+    window.location.href=`/board/scroll/?keywords=${keywords}`
+}
+
+function pressEnter(){
+
+    if(event.keyCode == 13){
+        searchPosts()
+    }
+
+}
+
+document.querySelector("#board__scroll__content__search__close__icon").addEventListener("click",()=>{
+    location.href="/board/scroll/"
+})
+
+
 </script>
 {% endblock %}
